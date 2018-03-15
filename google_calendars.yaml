@@ -1,0 +1,94 @@
+
+- cal_id: 0rn7a9omrkfbtd90eop3pqr9go@group.calendar.google.com
+  entities:
+  - device_id: urodziny
+    name: Urodziny
+    track: false
+    search: "#UnImportant"
+
+- cal_id: a0cmo8k6hrern8svg6216vu23c@group.calendar.google.com
+  entities:
+  - device_id: rocznice
+    name: Rocznice
+    track: false
+
+- cal_id: hab35e7o6c3t7h4vho6tii5dtc@group.calendar.google.com
+  entities:
+  - device_id: wazne_terminy
+    name: "Wazne terminy"
+    track: false
+
+- cal_id: 31h3iiioe3kcuund6k3cs5q9o4@group.calendar.google.com
+  entities:
+  - device_id: cele_treningowe_polar
+    name: Cele treningowe Polar
+    track: false
+
+- cal_id: bpj5l82sjv4jml2avb8hibp0p8@group.calendar.google.com
+  entities:
+  - device_id: rezultaty_treningow_polar
+    name: "Rezultaty treningow Polar"
+    track: false
+
+- cal_id: ab54tjqqlaol3rdnksieju8mcc@group.calendar.google.com
+  entities:
+  - device_id: ubuntu_release_calendar
+    name: Ubuntu Release Calendar
+    track: false
+
+- cal_id: 0s9898hrpo3hns2ksgugeq72d8@group.calendar.google.com
+  entities:
+  - device_id: tenneco
+    name: Tenneco
+    track: false
+
+- cal_id: chi1srb6l5k22qpolbgunps9mc@group.calendar.google.com
+  entities:
+  - device_id: urlop
+    name: Urlop
+    track: true
+
+- cal_id: david.durka@gmail.com
+  entities:
+  - device_id: prywatny
+    name: Prywatny
+    track: true
+
+- cal_id: '#contacts@group.v.calendar.google.com'
+  entities:
+  - device_id: contacts
+    name: Contacts
+    track: false
+
+- cal_id: pl.christian#holiday@group.v.calendar.google.com
+  entities:
+  - device_id: swieta_chrzescijanskie
+    name: "Swieta chrzesijanskie"
+    track: true
+    search: "#Important"
+
+- cal_id: pl.polish#holiday@group.v.calendar.google.com
+  entities:
+  - device_id: swieta_w_polsce
+    name: "Swieta w Polsce"
+    track: true
+    search: "#UnImportant"
+
+- cal_id: pol2_10351_%4batowice#sports@group.v.calendar.google.com
+  entities:
+  - device_id: katowice
+    name: Katowice
+    track: false
+
+- cal_id: classroom106276195106955007631@group.calendar.google.com
+  entities:
+  - device_id: tttt
+    name: tttt
+    track: false
+
+- cal_id: pozyczkaportal.pl_3kglsri9bkri7ulq222hnp1edo@group.calendar.google.com
+  entities:
+  - device_id: niedziela_bez_handlu
+    name: Niedziela bez handlu
+    track: true
+    offset: "!!-720"

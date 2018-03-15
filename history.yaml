@@ -1,0 +1,8 @@
+include:
+  entities:
+    - device_tracker.gohm_nexus
+    - sensor.nexus__dystans
+    - sensor.nexus__obecnosc
+    - sensor.pogoda_rain
+    - sensor.pogoda_snow
+    - sensor.pogoda_condition

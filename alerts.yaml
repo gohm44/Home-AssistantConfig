@@ -1,0 +1,24 @@
+okno:
+  name: Okno w sypialni jest otwarte
+  entity_id: binary_sensor.czujnik_otwarcia_okna
+  state: 'on'   # Optional, 'on' is the default value
+  repeat:
+    - 5
+    - 60
+    - 80
+#  can_acknowledge: True  # Optional, default is True
+  skip_first: True  # Optional, false is the default
+  notifiers:
+    - html5
+wentylator:
+  name: Wentylator w łazience jest włączony
+  entity_id: fan.wentylator_w_azience
+  state: 'on'   # Optional, 'on' is the default value
+  repeat:
+    - 1
+    - 5
+    - 10
+#  can_acknowledge: True  # Optional, default is True
+#  skip_first: True  # Optional, false is the default
+  notifiers:
+    - html5

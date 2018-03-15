@@ -1,0 +1,23 @@
+- name: Home
+  latitude: 50.226282
+  longitude: 19.058654
+  radius: 50
+  icon: mdi:home
+
+- name: Work
+  latitude: 50.266563
+  longitude: 18.696875
+  radius: 150
+  icon: mdi:worker
+
+- name: Gorzyce
+  latitude: 49.961150
+  longitude: 18.379377
+  radius: 500
+  icon: mdi:home-outline
+
+- name: Radlin
+  latitude: 50.048858
+  longitude: 18.476174
+  radius: 200
+  icon: mdi:account-multiple

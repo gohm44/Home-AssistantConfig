@@ -1,0 +1,95 @@
+#climate.danfoss_z_thermostat_014g0013_heating_1:
+#  friendly_name: Termostat w pokoju dziennym
+#climate.danfoss_z_thermostat_014g0013_heating_1_2:
+#  friendly_name: Termostat w kuchni
+#climate.danfoss_z_thermostat_014g0013_heating_1_3:
+#  friendly_name: Termostat w sypialni
+#climate.danfoss_z_thermostat_014g0013_heating_1_4:
+#  friendly_name: Termostat w lazience
+climate.Termostat_w_pokoju_dziennym_heating_1:
+  friendly_name: Termostat w pokoju dziennym
+climate.termostat_w_kuchni_heating_1:
+  friendly_name: Termostat w kuchni
+climate.termostat_w_sypialni_heating_1:
+  friendly_name: Termostat w sypialni
+climate.termostat_w_lazience_heating_1:
+  friendly_name: Termostat w lazience
+zwave.danfoss_z_thermostat_014g0013:
+  friendly_name: Termostat w pokoju dziennym
+zwave.danfoss_z_thermostat_014g0013_2:
+  friendly_name: Termostat w kuchni
+zwave.danfoss_z_thermostat_014g0013_3:
+  friendly_name: Termostat w sypialni
+zwave.danfoss_z_thermostat_014g0013_4:
+  friendly_name: Termostat w lazience
+
+sensor.pogoda_humidity:
+  friendly_name: "Wilgotność"
+#sensor.pogoda_humidity_1:
+#  friendly_name: "Wilgotność (jutro)"
+sensor.pogoda_pressure:
+  friendly_name: "Ciśnienie atmosferyczne"
+  unit_of_measurement: "hPa"
+#sensor.pogoda_pressure_1:
+#  friendly_name: "Ciśnienie atmosferyczne (jutro)"
+sensor.pogoda_temperature:
+  friendly_name: Temperatura
+sensor.pogoda_summary:
+  friendly_name: Podsumowanie
+sensor.pogoda_cloud_coverage:
+  friendly_name: Zachmurzenie
+sensor.pogoda_condition:
+  friendly_name: Warunki pogodowe
+sensor.pogoda_rain:
+  friendly_name: Deszcz
+sensor.pogoda_snow:
+  friendly_name: Snieg
+sensor.pogoda_wind_bearing:
+  friendly_name: Kierunek wiatru
+sensor.pogoda_wind_speed:
+  friendly_name: Prędkość wiatru
+
+sensor.licznik_zuzycia_wody:
+  icon: mdi:water
+sensor.licznik_zuzycia_gazu:
+  icon: mdi:gas-cylinder
+sensor.licznik_zuzycia_pradu:
+  icon: mdi:power-plug
+switch.gosniki:
+  icon: mdi:speaker-wireless
+switch.komputer:
+  icon: mdi:desktop-classic
+sensor.season:
+  icon: mdi:earth
+sensor.danfoss_bateria_kuchnia:
+  icon: mdi:battery
+sensor.danfoss_bateria_lazienka:
+  icon: mdi:battery
+sensor.danfoss_bateria_salon:
+  icon: mdi:battery
+sensor.danfoss_bateria_sypialnia:
+  icon: mdi:battery
+sensor.wilgotnosc_w_kuchni:
+  icon: mdi:water-percent
+sensor.wilgotnosc_w_pokoju_dziennym:
+  icon: mdi:water-percent
+sensor.wilgotnosc_w_sypialni:
+  icon: mdi:water-percent
+sensor.aqi_sredni_w_pokoju_dziennym:
+  icon: mdi:periodic-table-co2
+sensor.aqi_w_pokoju_dziennym:
+  icon: mdi:periodic-table-co2
+sensor.do_domu:
+  icon: mdi:traffic-light
+sensor.do_pracy:
+  icon: mdi:traffic-light
+sensor.dostepne_aktualizacje:
+  icon: mdi:update
+sensor.dostepne_aktualizacje_bezpieczenstwa:
+  icon: mdi:update
+sensor.disc_w_use_:
+  icon: mdi:harddisk
+sensor.nexus__dystans:
+  icon: mdi:transit-transfer
+sensor.nexus__obecnosc:
+  icon: mdi:human-greeting

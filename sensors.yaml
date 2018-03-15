@@ -1,0 +1,360 @@
+# Weather prediction
+#- platform: yr
+#  monitored_conditions:
+#      - temperature
+#      - symbol
+#      - pressure
+#      - humidity
+
+- platform: openweathermap
+  api_key: e3f1248a50a66e4b759e227932f24dc7
+  name: pogoda
+  monitored_conditions:
+    - weather
+    - temperature
+    - wind_speed
+    - wind_bearing
+    - humidity
+    - pressure
+    - clouds
+    - rain
+    - snow
+
+#- platform: darksky
+#  api_key: a7350a9c8b063ec51e823d25614570b8
+#  name: pogoda
+#  forecast: 1
+#  monitored_conditions:
+#    - summary
+#    - icon
+#    - temperature
+#    - humidity
+#    - pressure
+#  units: si
+
+#- platform: command_line
+#  name: CPU Temperature
+#  command: "cat /sys/class/thermal/thermal_zone2/temp"
+#  unit_of_measurement: "°C"
+#  value_template: '{{ value | multiply(0.001) | round(1) }}'
+
+- platform: mqtt
+  name: "Temperatura w kuchni"
+  state_topic: "home/sonoff/01/temp"
+  qos: 1
+  unit_of_measurement: "°C"
+  value_template: "{{ value_json.Temp }}"
+
+- platform: mqtt
+  name: "Wilgotność w kuchni"
+  state_topic: "home/sonoff/01/temp"
+  qos: 1
+  unit_of_measurement: "%"
+  value_template: "{{ value_json.Humidity }}"
+
+- platform: mqtt
+  state_topic: '/sensor/sypialnia/temperatura'
+  name: 'Temperatura w sypialni'
+  unit_of_measurement: '°C'
+  value_template: '{{ value | round(1) }}'
+
+- platform: mqtt
+  state_topic: '/sensor/sypialnia/wilgotnisc'
+  name: 'Wilgotność w sypialni'
+  unit_of_measurement: '%'
+  value_template: '{{ value | round(1) }}'
+
+- platform: mqtt
+  state_topic: '/sensor/czujnik_swiatla_sypialnia'
+  name: 'Natężenia światła w sypialni'
+  unit_of_measurement: 'lx'
+  value_template: '{{ value | round(1) }}'
+
+- platform: mqtt
+  state_topic: '/sypialnia/multisensor/disc_free_space'
+  name: 'Disc W use /'
+  unit_of_measurement: '%'
+  value_template: '{{ value | round(1) }}'
+  expire_after: 600
+
+- platform: mqtt
+  state_topic: '/home/salon/temperatura'
+  name: 'Temperatura z esp8266'
+  unit_of_measurement: '°C'
+  value_template: '{{ value | round(1) }}'
+
+- platform: mqtt
+  state_topic: '/home/salon/esp_napiecie'
+  name: 'ESP8266 napięcie'
+  unit_of_measurement: 'V'
+  value_template: '{{ value | multiply(0.001) | round(1) }}'
+
+- platform: mqtt
+  state_topic: '/present_detection/nexus/presence'
+  name: 'Nexus - obecność'
+  expire_after: 30
+
+- platform: mqtt
+  state_topic: '/present_detection/nexus/distance'
+  name: 'Nexus - dystans'
+  unit_of_measurement: 'db'
+  expire_after: 45
+  value_template: '{{ value | round(1) }}'
+
+- platform: mqtt
+  state_topic: '/home/pc/gpu_temp'
+  name: 'Temperatura karty graficznej'
+  unit_of_measurement: '°C'
+  expire_after: 45
+  value_template: '{{ value | round(1) }}'
+
+- platform: template
+  sensors:
+    danfoss_bateria_salon:
+      value_template: '{% if states.zwave.termostat_w_pokoju_dziennym %}
+        {{ states.zwave.termostat_w_pokoju_dziennym.attributes.battery_level }}
+      {% else %}
+        n/a
+      {% endif %}'
+      friendly_name: 'Poziom bateri termostatu w pokoju dziennym'
+      unit_of_measurement: '%'
+
+    danfoss_bateria_kuchnia:
+      value_template: '{% if states.zwave.termostat_w_kuchni %}
+        {{ states.zwave.termostat_w_kuchni.attributes.battery_level }}
+      {% else %}
+        n/a
+      {% endif %}'
+      friendly_name: 'Poziom bateri termostatu w kuchni'
+      unit_of_measurement: '%'
+
+    danfoss_bateria_sypialnia:
+      value_template: '{% if states.zwave.termostat_w_sypialni %}
+        {{ states.zwave.termostat_w_sypialni.attributes.battery_level }}
+      {% else %}
+        n/a
+      {% endif %}'
+      friendly_name: 'Poziom bateri termostatu w sypialni'
+      unit_of_measurement: '%'
+
+    danfoss_bateria_lazienka:
+      value_template: '{% if states.zwave.termostat_w_lazience %}
+        {{ states.zwave.termostat_w_lazience.attributes.battery_level }}
+      {% else %}
+        n/a
+      {% endif %}'
+      friendly_name: 'Poziom bateri termostatu w łazience'
+      unit_of_measurement: '%'
+
+#    wykrywanie_twarzy_gohm:
+#      value_template: '{% if states.image_processing.identyfikacja_twarzy %}
+#                      {{ states.image_processing.identyfikacja_twarzy.attributes.faces[0].name }}
+#                      {% else %}
+#                      n/a
+#                      {% endif %}'
+
+#    jasnosc_pokoj_dzienny:
+#      value_template: '{{ states.light.pokoj_dzienny.attributes.brightness }}'
+#      friendly_name: 'Jasność swiateł w pokoju dziennym'
+
+#    ciemnosc_w_pokoju_dziennym:
+#      value_template: '{{ states.sensor.jasnosc_w_pokoju_dziennym.state | int }}'
+#      friendly_name: Ciemność w pokoju dziennym
+#      unit_of_measurement: 'none'
+
+    temperatura_w_pokoju_dziennym:
+      value_template: '{% if states.fan.xiaomi_air_purifier %}
+        {{ states.fan.xiaomi_air_purifier.attributes.temperature}}
+      {% else %}
+        n/a
+      {% endif %}'
+      friendly_name: Temperatura w pokoju dziennym
+      unit_of_measurement: '°C'
+
+    aqi_sredni_w_pokoju_dziennym:
+      value_template: '{% if states.fan.xiaomi_air_purifier %}
+        {{ states.fan.xiaomi_air_purifier.attributes.average_aqi}}
+      {% else %}
+        n/a
+      {% endif %}'
+      friendly_name: AQI - średni
+      unit_of_measurement: 'aqi'
+
+    aqi_w_pokoju_dziennym:
+      value_template: '{% if states.fan.xiaomi_air_purifier %}
+        {{ states.fan.xiaomi_air_purifier.attributes.aqi}}
+      {% else %}
+        n/a
+      {% endif %}'
+      friendly_name: AQI
+      unit_of_measurement: 'aqi'
+
+    wilgotnosc_w_pokoju_dziennym:
+      value_template: '{% if states.fan.xiaomi_air_purifier %}
+        {{ states.fan.xiaomi_air_purifier.attributes.humidity}}
+      {% else %}
+        n/a
+      {% endif %}'
+      friendly_name: Wilgotność w pokoju dziennym
+      unit_of_measurement: '%'
+
+#    temperatura_w_komputerze_pc:
+#      value_template: '{{ ((states.sensor.temperatura_w_komputerze.state | float * 3.22265625 - 500) * 0.1) | round(1) }}'
+#      friendly_name: Temperatura
+#      unit_of_measurement: '°C'
+
+- platform: google_travel_time
+  name: Do domu
+  api_key: AIzaSyDQaVxZdCq--bDoC6jF8E1hhrzbtXHU4ao
+  origin: device_tracker.gohm_nexus
+  destination: zone.home
+
+- platform: google_travel_time
+  name: Do pracy
+  api_key: AIzaSyDQaVxZdCq--bDoC6jF8E1hhrzbtXHU4ao
+  origin: device_tracker.gohm_nexus
+  destination: zone.work
+
+- platform: systemmonitor
+  resources:
+    - type: disk_use_percent
+      arg: /
+    - type: processor_use
+
+#- platform: arduino
+#  pins:
+#    0:
+#      name: Jasność w Pokoju Dziennym
+
+#- platform: transmission
+#  host: 192.168.1.100
+#  name: Transmission
+#  username: gohm
+#  password: znikam
+#  monitored_variables:
+#    - 'current_status'
+#    - 'download_speed'
+#    - 'upload_speed'
+
+#- platform: zoneminder
+#  include_archived: false
+
+- platform: season
+  type: astronomical
+
+- platform: command_line
+  name: Dostępne aktualizacje
+  command: /usr/lib/update-notifier/apt-check --human-readable | grep "can be updated" | cut -c1,2
+  value_template: '{{ value }}'
+
+- platform: command_line
+  name: Dostępne aktualizacje bezpieczeństwa
+  command: /usr/lib/update-notifier/apt-check --human-readable | grep "security update" | cut -c1,2
+  value_template: '{{ value }}'
+
+- platform: mold_indicator
+  indoor_temp_sensor: sensor.temperatura_w_pokoju_dziennym
+  indoor_humidity_sensor: sensor.wilgotnosc_w_pokoju_dziennym
+  outdoor_temp_sensor: sensor.pogoda_temperature
+  calibration_factor: 1.107
+
+- platform: waqi
+  token: 3769d6113134182298d5ed26e9998237a4d71f1c
+  locations:
+    - katowice
+
+- platform: template
+  sensors:
+    battery_phone:
+      friendly_name: Bateria - telefon
+      unit_of_measurement: '%'
+      value_template: >
+          {%- if states.device_tracker.gohm_nexus.attributes.battery %}
+              {{ states.device_tracker.gohm_nexus.attributes.battery|round }}
+          {% else %}
+              {{ states.device_tracker.gohm_nexus.state }}
+          {%- endif %}
+      icon_template: '{%- if is_state("sensor.battery_phone", "unknown") %}mdi:battery-unknown{%- elif is_state_attr("device_tracker.gohm_nexus", "battery_status", "Charging") %}mdi:battery-charging{%- elif  states.device_tracker.gohm_nexus.attributes.battery <= 5 %}mdi:battery-outline{%- elif states.device_tracker.gohm_nexus.attributes.battery >= 95 %}mdi:battery{% else %}mdi:battery-{{(states.device_tracker.gohm_nexus.attributes.battery|float / 10)|round*10}}{%- endif %}'
+
+- platform: mqtt
+  state_topic: '/sensor/licznik_wody'
+  name: 'Licznik zużycia wody'
+  unit_of_measurement: 'm³'
+#  value_template: '{{ value | round(3) }}'
+
+- platform: mqtt
+  state_topic: '/sensor/licznik_gazu'
+  name: 'Licznik zużycia gazu'
+  unit_of_measurement: 'm³'
+
+- platform: template
+  sensors:
+    slider_temp_comma:
+      value_template: "{{ states('input_number.slider_temp')|replace(',', '.') }}"
+
+- platform: mqtt
+  state_topic: '/home/lazienka/multisensor/temperatura'
+  name: 'Temperatura w łazience'
+  unit_of_measurement: '°C'
+  expire_after: 30
+  value_template: '{{ value | round(1) }}'
+
+- platform: mqtt
+  state_topic: '/home/lazienka/multisensor/wilgotnosc'
+  name: 'Wilgotność w łazience'
+  unit_of_measurement: '%'
+  expire_after: 30
+  value_template: '{{ value | round(1) }}'
+
+- platform: mqtt
+  state_topic: '/home/lazienka/multisensor/mokro'
+  name: 'Mokro w łazience'
+  unit_of_measurement: 'V'
+  expire_after: 30
+  value_template: '{{ value | round(1) }}'
+
+- platform: uptime
+  name: Time Online
+  unit_of_measurement: minutes
+
+- platform: mqtt
+  name: "Gas sensor volt"
+  state_topic: "/home/gas_sensor_volt"
+  unit_of_measurement: 'none'
+  expire_after: 30
+  value_template: '{{ value | round(2) }}'
+
+- platform: mqtt
+  name: "Gas sensor RS_gas"
+  state_topic: "/home/gas_sensor_RS_gas"
+  unit_of_measurement: 'none'
+  expire_after: 30
+  value_template: '{{ value | round(2) }}'
+
+- platform: mqtt
+  name: "Gas sensor ratio"
+  state_topic: "/home/gas_sensor_ratio"
+  unit_of_measurement: 'none'
+  expire_after: 30
+  value_template: '{{ value | round(2) }}'
+
+- platform: mqtt
+  state_topic: '/sensor/licznik_pradu'
+  name: 'Licznik zużycia prądu'
+  unit_of_measurement: 'kWh'
+
+- platform: filter
+  name: "filtered dystans"
+  entity_id: sensor.nexus__dystans
+  filters:
+    - filter: outlier
+      window_size: 4
+      radius: 4.0
+    - filter: lowpass
+      time_constant: 10
+      precision: 2
+
+- platform: mqtt
+  state_topic: '/test'
+  name: 'test'
+  unit_of_measurement: 'none'

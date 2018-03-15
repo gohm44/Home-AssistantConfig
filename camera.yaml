@@ -1,0 +1,5 @@
+#- platform: zoneminder
+- platform: ffmpeg
+  input: /dev/video0
+  extra_arguments: -pred 1
+#-codec:v libx264 -qp 0

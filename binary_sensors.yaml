@@ -1,0 +1,52 @@
+# platform: mqtt
+#  state_topic: "/present_detection/sypialnia"
+#  name: "Czujnik ruchu"
+#  payload_on: "1"
+#  payload_off: "0"
+#  device_class: motion
+
+- platform: command_line
+  name: "Multisensor"
+  command: ping -W 1 -c 1 192.168.1.150 > /dev/null 2>&1 && echo success || echo fail
+  device_class: connectivity
+  payload_on: "success"
+  payload_off: "fail"
+
+- platform: command_line
+  name: "Komputer"
+  command: ping -W 1 -c 1 192.168.1.101 > /dev/null 2>&1 && echo success || echo fail
+  device_class: connectivity
+  payload_on: "success"
+  payload_off: "fail"
+
+- platform: mqtt
+  state_topic: "/sensor/sypialnia/okno"
+  name: "Czujnik otwarcia okna"
+  payload_on: "1"
+  payload_off: "0"
+  device_class: opening
+
+- platform: command_line
+  command: test -f /var/run/reboot-required && echo success || echo fail
+  name: Restart serwera
+  payload_on: "success"
+  payload_off: "fail"
+
+- platform: ping
+  name: google_dns
+  host: 8.8.8.8
+
+- platform: mqtt
+  name: "influxdb_test"
+  state_topic: "/home/aqi_above_40"
+  expire_after: 10
+  payload_on: "on"
+  payload_off: "fail"
+#  value_template: '{{ value | round(2) }}'
+
+#- platform: mqtt
+#  state_topic: "/sensor/sypialnia/button"
+#  name: "Przycisk - sypialnia"
+#  payload_on: "0"
+#  payload_off: "1"
+##  device_class: connectivity

@@ -1,0 +1,12 @@
+climate.termostat_w_pokoju_dziennym_heating_1:
+  platform: zwave
+  unique_id: 2-72057594076774418
+climate.termostat_w_kuchni_heating_1:
+  platform: zwave
+  unique_id: 3-72057594093551634
+climate.termostat_w_sypialni_heating_1:
+  platform: zwave
+  unique_id: 4-72057594110328850
+climate.termostat_w_lazience_heating_1:
+  platform: zwave
+  unique_id: 5-72057594127106066

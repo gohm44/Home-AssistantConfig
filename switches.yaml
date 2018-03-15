@@ -1,0 +1,36 @@
+#- platform: mqtt
+#  name: "Głośniki"
+#  state_topic: "home/salon/sw_glosniki/state"
+#  command_topic: "home/salon/sw_glosniki"
+#  payload_on: "ON"
+#  payload_off: "OFF"
+#  optimistic: false
+#  qos: 0
+#  ratain: true
+
+- platform: arduino
+  pins:
+    12:
+      name: Głośniki
+    09:
+      name: Komputer
+
+- platform: mqtt
+  name: "test_switch"
+  state_topic: "/test/state"
+  command_topic: "/test"
+  payload_on: "ON"
+  payload_off: "OFF"
+  optimistic: false
+  qos: 0
+  ratain: true
+
+#- platform: transmission
+#  host: 192.168.1.100
+#  name: Transmission
+#  username: gohm
+#  password: znikam
+
+#- platform: zoneminder
+#  command_on: Modect
+#  command_off: Monitor

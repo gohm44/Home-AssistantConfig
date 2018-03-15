@@ -1,0 +1,18 @@
+- platform: vlc
+  arguments: '--alsa-audio-device=hw:1,0'
+
+- platform: spotify
+  client_id: 314d85c4c7d5409abd3102e6cb1b5cf2
+  client_secret: cd5e4b770cb44ef9a0ca41632e320dd2
+
+- platform: mpd
+  host: 192.168.1.101
+
+#- platform: snapcast
+#  host: 192.168.1.100
+#- platform: mpd
+#  host: 192.168.1.100
+#  location: Server
+#- platform: mpd
+#  server: 192.168.1.101
+#  location: Room 1

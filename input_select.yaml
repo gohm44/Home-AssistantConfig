@@ -1,0 +1,14 @@
+budzik:
+  name: budzik
+  options:
+   - tak
+   - nie
+
+screen_mode:
+  name: Ustawienie monitorów
+  icon: mdi:monitor-multiple
+  options:
+    - "default"
+    - "single"
+    - "TV"
+    - "all"

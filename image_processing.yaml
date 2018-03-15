@@ -1,0 +1,12 @@
+#- platform: dlib_face_detect
+#  source:
+#    - entity_id: camera.ffmpeg
+#      name: Wykrywanie twarzy
+- platform: dlib_face_identify
+  source:
+    - entity_id: camera.ffmpeg
+      name: Identyfikacja twarzy
+  faces:
+    gohm: /home/homeassistant/.homeassistant/www/gohm.png
+    daniel: /home/homeassistant/.homeassistant/www/daniel.png
+    marcin: /home/homeassistant/.homeassistant/www/marcin.png

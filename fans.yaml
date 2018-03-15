@@ -1,0 +1,12 @@
+- platform: mqtt
+  name: "Wentylator w łazience"
+  state_topic: "/home/lazienka/wentylator/state"
+  command_topic: "/home/lazienka/wentylator"
+  optimistic: false
+#    qos: 0
+  payload_on: "ON"
+  payload_off: "OFF"
+
+- platform: xiaomi_miio
+  host: 192.168.1.241
+  token: 8bf095169db10e7a8c14180d7f019d22

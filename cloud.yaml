@@ -1,0 +1,23 @@
+alexa:
+  filter:
+    include_entities:
+      - light.kuchnia
+      - light.salon
+      - scene.film
+    include_domains:
+#      - group
+#      - switch
+#      - light
+#      - media_player
+#      - scene
+  entity_config:
+    light.kuchnia:
+      name: Kitchen light
+      description: Kitchen light
+    light.salon:
+      name: Living room light
+      description: Living room light
+    scene.film:
+      name: Movie
+      description: Movie
+      display_categories: SCENE_TRIGGER

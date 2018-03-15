@@ -1,0 +1,3 @@
+play_sound: play --volume 0.2 /home/homeassistant/.homeassistant/sounds/to-the-point.ogg
+set_volume_95: amixer -c 1 set Master 95%
+set_volume_90: amixer -c 1 set Master 90%

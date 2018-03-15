@@ -1,0 +1,30 @@
+- name: Dobranoc
+  entities:
+    group.all_lights: off
+    switch.gosniki: off
+
+- name: Dowidzenia
+  entities:
+    group.all_lights: off
+    switch.gosniki: off
+
+- name: Kolacja
+  entities:
+    group.all_lights: off
+
+- name: Przygotowanie kolacji
+  entities:
+    light.kuchnia: on
+    light.salon: off
+
+- name: Prysznic
+  entities:
+    light.kuchnia: off
+    light.salon: off
+
+- name: Film
+  entities:
+    group.all_lights: off
+    media_player.spotify: paused
+    input_select.screen_mode:
+      option: TV

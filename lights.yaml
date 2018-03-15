@@ -1,0 +1,17 @@
+- platform: mqtt
+  name: "Kuchnia"
+  state_topic: "home/sonoff/01/stat"
+  command_topic: "home/sonoff/01"
+  qos: 0
+  payload_on: "on"
+  payload_off: "off"
+  retain: true
+
+#- platform: mqtt_json
+#  name: Diody
+#  state_topic: "home/rgb1"
+#  command_topic: "home/rgb1/set"
+#  brightness: true
+#  rgb: true
+#  optimistic: false
+#  qos: 0

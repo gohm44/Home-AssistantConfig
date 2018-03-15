@@ -1,0 +1,371 @@
+default_view:
+  name: Home
+  view: true
+  entities:
+    - camera.ffmpeg
+    - image_processing.wykrywanie_twarzy
+    - image_processing.identyfikacja_twarzy
+    - group.lokalizacja
+    - group.pogoda
+    - group.astronomia
+    - group.ustaw_temperature
+    - group.sensory_home
+sensory_home:
+  name: Sensor
+  view: false
+  entities:
+    - sensor.mold_indicator
+ustaw_temperature:
+  name: Ustaw temperature w mieszkaniu
+  view: false
+  entities:
+    - input_number.slider_temp
+    - input_number.slider_temp_bez_lazienki
+    - input_number.slider_temp_lazienka
+astronomia:
+  name: Astronomia
+  view: false
+  entities:
+    - sensor.season
+    - sun.sun
+lokalizacja:
+  name: Lokalizacja
+  entities:
+    - device_tracker.gohm_nexus
+    - device_tracker.telefon
+    - device_tracker.00f5b8f98c93b4e9
+    - sensor.nexus__dystans
+    - sensor.nexus__obecnosc
+    - sensor.do_domu
+    - sensor.do_pracy
+    - input_boolean.wracam_do_domu_z_gorzyc
+pogoda:
+  name: Pogoda
+  view: false
+  entities:
+    - sensor.pogoda_temperature
+    - sensor.pogoda_humidity
+    - sensor.pogoda_pressure
+    - sensor.pogoda_cloud_coverage
+    - sensor.pogoda_condition
+    - sensor.pogoda_rain
+    - sensor.pogoda_snow
+    - sensor.pogoda_wind_bearing
+    - sensor.pogoda_wind_speed
+#    - sensor.pogoda_humidity_1
+#    - sensor.pogoda_precip
+#    - sensor.pogoda_precip_1
+#    - sensor.pogoda_precip_accumulation
+#    - sensor.pogoda_precip_accumulation_1
+#    - sensor.pogoda_precip_intensity
+#    - sensor.pogoda_precip_intensity_1
+#    - sensor.pogoda_precip_probability
+#    - sensor.pogoda_precip_probability_1
+#    - sensor.pogoda_pressure_1
+#    - sensor.pogoda_wind_speed
+#    - sensor.pogoda_wind_speed_1
+#    - sensor.pogoda_summary
+#    - sensor.pogoda_minutely_summary
+#    - sensor.pogoda_hourly_summary
+#    - sensor.pogoda_daily_summary
+    - sensor.waqi_katowice_ul_kossutha_6_poland
+
+#############################################################
+
+pokoj:
+  name: Pokój dzienny
+  view: true
+  entities:
+  - group.sensory_pokoj
+  - climate.termostat_w_pokoju_dziennym_heating_1
+  - climate.danfoss_z_thermostat_014g0013_heating_1
+  - group.lights_salon
+  - light.salon_l
+  - light.salon_r
+  - sensor.temperatura_w_pokoju_dziennym
+  - sensor.danfoss_bateria_salon
+#  - sensor.esp8266_napiecie
+  - fan.xiaomi_air_purifier
+sensory_pokoj:
+  name: Sensor
+  view: false
+  entities:
+  - sensor.ciemnosc_w_pokoju_dziennym
+  - sensor.temperatura_w_pokoju_dziennym
+  - sensor.wilgotnosc_w_pokoju_dziennym
+  - sensor.danfoss_bateria_salon
+#  - sensor.esp8266_napiecie
+  - sensor.tradfri_remote_control
+  - sensor.aqi_sredni_w_pokoju_dziennym
+  - sensor.aqi_w_pokoju_dziennym
+lights_salon:
+  name: Light
+  view: false
+#  control: hidden
+  icon: mdi:lightbulb
+  entities:
+#    - light.salon
+    - light.salon_l
+    - light.salon_r
+
+#############################################################
+
+kuchnia:
+  name: Kuchnia
+  view: true
+  entities:
+  - climate.termostat_w_kuchni_heating_1
+  - climate.danfoss_z_thermostat_014g0013_heating_1_2
+  - light.kuchnia
+  - group.sensory_kuchnia
+sensory_kuchnia:
+  name: Sensor
+  view: false
+  entities:
+  - sensor.temperatura_w_kuchni
+  - sensor.wilgotnosc_w_kuchni
+  - sensor.danfoss_bateria_kuchnia
+
+#############################################################
+
+sypialnia:
+  name: Sypialnia
+  view: true
+  entities:
+  - climate.termostat_w_sypialni_heating_1
+  - climate.danfoss_z_thermostat_014g0013_heating_1_3
+  - group.sensory_sypialnia
+sensory_sypialnia:
+  name: Sensor
+  view: false
+  entities:
+  - binary_sensor.czujnik_otwarcia_okna
+  - binary_sensor.multisensor
+  - sensor.danfoss_bateria_sypialnia
+  - sensor.natezenia_swiata_w_sypialni
+  - sensor.temperatura_w_sypialni
+  - sensor.wilgotnosc_w_sypialni
+  - sensor.disc_w_use_
+
+#############################################################
+
+lazienka:
+  name: "Łazienka"
+  view: true
+  entities:
+  - climate.termostat_w_lazience_heating_1
+  - climate.danfoss_z_thermostat_014g0013_heating_1_4
+  - fan.wentylator_w_azience
+  - group.sensory_lazienka
+sensory_lazienka:
+  name: Sensor
+  view: false
+  entities:
+  - sensor.danfoss_bateria_lazienka
+  - sensor.temperatura_w_azience
+  - sensor.wilgotnosc_w_azience
+  - sensor.mokro_w_azience
+
+#############################################################
+
+server:
+  name: Serwer
+  view: true
+  icon: mdi:server
+  entities:
+  - group.sensory_serwer
+sensory_serwer:
+  name: Sensor
+  view: false
+  entities:
+  - sensor.cpu_used
+  - sensor.disk_used_
+  - sensor.disk_use_percent_
+  - sensor.packets_received_enp2s0
+  - sensor.packets_sent_enp2s0
+  - sensor.received_enp2s0
+  - sensor.sent_enp2s0
+  - sensor.dostepne_aktualizacje
+  - sensor.dostepne_aktualizacje_bezpieczenstwa
+  - binary_sensor.restart_serwera
+  - updater.updater
+  - binary_sensor.google_dns
+
+###########################################################
+
+multimedia:
+  name: Multimedia
+  view: true
+  icon: mdi:play-circle-outline
+  entities:
+  - group.telefon
+  - group.komputer
+  - group.muzyka
+telefon:
+  name: Telefon
+  view: false
+  entities:
+    - sensor.battery_phone
+komputer:
+  name: Komputer
+  view: false
+  entities:
+    - binary_sensor.komputer
+    - sensor.temperatura_karty_graficznej
+    - input_select.screen_mode
+    - switch.gosniki
+    - switch.komputer
+muzyka:
+  name: Muzyka
+  view: false
+  entities:
+    - media_player.vlc
+    - media_player.spotify
+    - media_player.mpd
+#############################################################
+
+light:
+  name: Światło
+  view: true
+  icon: mdi:lightbulb
+  entities:
+    - group.all_lights
+    - light.kuchnia
+    - light.salon_l
+    - light.salon_r
+    - light.diody
+
+#############################################################
+
+grzejniki:
+  name: Grzejniki
+  view: true
+  icon: mdi:temperature-celsius
+  entities:
+    - group.grzejniki
+    - climate.termostat_w_pokoju_dziennym_heating_1
+    - climate.termostat_w_kuchni_heating_1
+    - climate.termostat_w_sypialni_heating_1
+    - climate.termostat_w_lazience_heating_1
+#    - climate.danfoss_z_thermostat_014g0013_heating_1
+#    - climate.danfoss_z_thermostat_014g0013_heating_1_2
+#    - climate.danfoss_z_thermostat_014g0013_heating_1_3
+#    - climate.danfoss_z_thermostat_014g0013_heating_1_4
+
+#############################################################
+
+monitoring:
+  name: Monitoring
+  view: false
+  icon: mdi:camera
+  entities:
+    - camera.pokoj_dzienny
+
+#############################################################
+
+calendar:
+  name: Kalendarz
+  view: true
+  icon: mdi:calendar
+  entities:
+    - calendar.prywatny
+    - calendar.swieta_chrzescijanskie
+    - calendar.swieta_w_polsce
+    - calendar.urlop
+
+#############################################################
+
+automations:
+  name: Automatyzacje
+  view: true
+  icon: mdi:robot
+  entities:
+    - automation.wietrzenie
+    - automation.automatyczne_odbiecie_przeacznika_komputera
+    - automation.automatyczne_wyaczenie_wentylatora
+    - automation.dostepne_aktualizacje_bezpieczenstwa_na_serwerze
+    - automation.dostepne_aktualizacje_na_serwerze
+    - automation.nacisniecie_przycisku_w_sypialni
+    - automation.niski_poziom_baterii_w_azience
+    - automation.niski_poziom_baterii_w_kuchni
+    - automation.niski_poziom_baterii_w_salonie
+    - automation.niski_poziom_baterii_w_sypialni
+    - automation.powiadomienie_o_natezeniu_ruchy_do_domu_o_16
+    - automation.powiadomienie_o_natezeniu_ruchy_do_domu_z_pracy
+    - automation.powiadomienie_o_otwartym_oknie
+    - automation.restart_serwera
+    - automation.update_available_notifications
+    - automation.waczenie_gosnikow_po_uruchomieniu_home_assistanta
+    - automation.waczenie_gosnikow_po_uruchomieniu_komputera
+    - automation.waczenie_swiate_po_wejsciu_do_domu_po_zmroku
+    - automation.waczenie_swiate_w_salonie_10_min_przed_zachodem_sonca
+    - automation.wietrzenie
+    - automation.wietrzenie_tak
+    - automation.wietrzymy_koniec
+    - automation.wietrzymy_powiadomienie_otworz_okno
+    - automation.wietrzymy_trwa
+    - automation.wyaczenie_gosnikow_po_wyaczeniu_komputera
+    - automation.wyaczenie_gosnikow_po_wyjsciu_z_domu
+    - automation.wyaczenie_swiate_po_wyjsciu_z_domu
+    - automation.komunikat_glosowy_rano
+    - automation.komunikat_glosowy_powrot_do_domu
+    - automation.budzik
+    - automation.idziesz_spac_czekam_na_odpowiedz
+    - automation.idziesz_spac_zapytanie
+    - automation.witaj_w_domu
+    - automation.uruchomienie_komputera_wykrycie_twarzy
+
+testing_area:
+  name: Testy
+  view: true
+  icon: mdi:worker
+  entities:
+    - switch.test_switch
+    - input_text.text1
+    - input_text.text2
+    - input_text.text3
+    - input_text.text4
+    - input_datetime.both_date_and_time
+    - input_datetime.only_date
+    - input_datetime.only_time
+    - input_select.budzik
+    - input_number.slider_temp
+    - group.sensory_testing
+sensory_testing:
+  name: sensory
+  view: false
+  entities:
+    - sensor.gas_sensor_ratio
+    - sensor.gas_sensor_rs_gas
+    - sensor.gas_sensor_volt
+    - sensor.licznik_wody
+    - binary_sensor.influxdb_test
+    - sensor.esp8266_napiecie
+    - sensor.temperatura_z_esp8266
+    - sensor.filtered_dystans
+
+sceny:
+  name: sceny
+  view: true
+  icon: mdi:auto-fix
+  entities:
+    - scene.dobranoc
+    - scene.dowidzenia
+    - scene.kolacja
+    - scene.film
+    - scene.prysznic
+    - scene.przygotowanie_kolacji
+
+liczniki:
+  name: Liczniki
+  view: true
+  icon: mdi:speedometer
+  entities:
+    - group.sensory_liczniki
+sensory_liczniki:
+  name: Liczniki
+  view: false
+  entities:
+    - sensor.licznik_zuzycia_wody
+    - sensor.licznik_zuzycia_gazu
+    - sensor.licznik_zuzycia_pradu
