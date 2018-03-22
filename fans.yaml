@@ -9,4 +9,4 @@
 
 - platform: xiaomi_miio
   host: 192.168.1.241
-  token: 8bf095169db10e7a8c14180d7f019d22
+  token: !secret xiaomi_miio_token

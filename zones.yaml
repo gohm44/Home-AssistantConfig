@@ -21,3 +21,9 @@
   longitude: 18.476174
   radius: 200
   icon: mdi:account-multiple
+
+- name: Lidl
+  latitude: 50.22682
+  longitude: 19.06087
+  radius: 50
+  icon: mdi:cart

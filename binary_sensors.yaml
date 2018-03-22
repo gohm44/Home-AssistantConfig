@@ -36,14 +36,12 @@
   name: google_dns
   host: 8.8.8.8
 
-- platform: mqtt
-  name: "influxdb_test"
-  state_topic: "/home/aqi_above_40"
-  expire_after: 10
-  payload_on: "on"
-  payload_off: "fail"
-#  value_template: '{{ value | round(2) }}'
-
+- platform: template
+  sensors:
+    jutro_wydarzenie_w_kalendarzu:
+      friendly_name: "Jutro wydarzenie w kalendarzu"
+      value_template: >-
+        {{(as_timestamp(now()) - as_timestamp(states.calendar.prywatny.attributes.start_time)) | float > -86400 and (as_timestamp(now()) - as_timestamp(states.calendar.prywatny.attributes.start_time)) | float < 0 }}
 #- platform: mqtt
 #  state_topic: "/sensor/sypialnia/button"
 #  name: "Przycisk - sypialnia"

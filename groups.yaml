@@ -15,6 +15,7 @@ sensory_home:
   view: false
   entities:
     - sensor.mold_indicator
+    - binary_sensor.jutro_wydarzenie_w_kalendarzu
 ustaw_temperature:
   name: Ustaw temperature w mieszkaniu
   view: false
@@ -191,6 +192,20 @@ sensory_serwer:
   - updater.updater
   - binary_sensor.google_dns
 
+download:
+  name: Pobieranie
+  view: true
+  icon: mdi:download
+  entities:
+  - group.sensory_download
+  - switch.transmission
+sensory_download:
+  name: Sensor
+  view: false
+  entities:
+    - sensor.transmission_down_speed
+    - sensor.transmission_status
+    - sensor.transmission_up_speed
 ###########################################################
 
 multimedia:
@@ -222,6 +237,12 @@ muzyka:
     - media_player.vlc
     - media_player.spotify
     - media_player.mpd
+    - media_player.mpd_server
+    - media_player.snapcast_client_448a5bff591a
+    - media_player.snapcast_client_dc9c52001fc5
+    - media_player.snapcast_group_010be0ec892c9d9fab7965a949483afa
+    - media_player.snapcast_group_77cf08cae084b4e91ddf84db8711f308
+    - media_player.volumio
 #############################################################
 
 light:
@@ -272,6 +293,7 @@ calendar:
     - calendar.swieta_chrzescijanskie
     - calendar.swieta_w_polsce
     - calendar.urlop
+    - binary_sensor.jutro_wydarzenie_w_kalendarzu
 
 #############################################################
 

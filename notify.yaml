@@ -11,9 +11,9 @@
 
 - name: pushbullet
   platform: pushbullet
-  api_key: o.jYaXIXtZsnkonx48XBQYbQWh0wGcCpxt
+  api_key: !secret pushbullet_api_key
 
 - name: html5
   platform: html5
-  gcm_api_key: AAAAGitmJzM:APA91bE56sFB9pO60CjizA01Y7NCnf9SbEbo661kBv2dP-rlghoJD6NVRofw5h6BdMlw_siclbE1oP4JoK_sO7KUY-K2kMBZsq5utNB_bpe6Ujf6IMZYkHxvUM07win9_aI1C5SQ2zXU
-  gcm_sender_id: 112397264691
+  gcm_api_key: !secret html5_gcm_api_key
+  gcm_sender_id: !secret html5_gcm_sender_id

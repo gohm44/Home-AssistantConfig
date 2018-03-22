@@ -33,7 +33,7 @@
       data:
         brightness: 50
     - service: tts.google_say
-      entity_id: media_player.vlc
+      entity_id: media_player.mpd_server
       data:
         message: 'Światło włączone.'
     - service: notify.html5
@@ -65,7 +65,7 @@
         topic: "powiadomienie"
         payload: "Uwaga! Poziom naładowania bateri termostatu w salonie spadł do 15%. Proszę wymień baterię."
     - service: tts.google_say
-      entity_id: media_player.vlc
+      entity_id: media_player.mpd_server
       data:
         message: 'Uwaga! Poziom naładowania bateri termostatu w salonie spadł do 15%. Proszę wymień baterię.'
 
@@ -93,7 +93,7 @@
         topic: "powiadomienie"
         payload: "Uwaga! Poziom naładowania bateri termostatu w kuchni spadł do 15%. Proszę wymień baterię."
     - service: tts.google_say
-      entity_id: media_player.vlc
+      entity_id: media_player.mpd_server
       data:
         message: 'Uwaga! Poziom naładowania bateri termostatu w kuchni spadł do 15%. Proszę wymień baterię.'
 
@@ -121,7 +121,7 @@
         topic: "powiadomienie"
         payload: "Uwaga! Poziom naładowania bateri termostatu w sypialni spadł do 15%. Proszę wymień baterię."
     - service: tts.google_say
-      entity_id: media_player.vlc
+      entity_id: media_player.mpd_server
       data:
         message: 'Uwaga! Poziom naładowania bateri termostatu w sypialni spadł do 15%. Proszę wymień baterię.'
 
@@ -149,7 +149,7 @@
         topic: "powiadomienie"
         payload: "Uwaga! Poziom naładowania bateri termostatu w łazience spadł do 15%. Proszę wymień baterię."
     - service: tts.google_say
-      entity_id: media_player.vlc
+      entity_id: media_player.mpd_server
       data:
         message: 'Uwaga! Poziom naładowania bateri termostatu w łazience spadł do 15%. Proszę wymień baterię.'
 
@@ -178,7 +178,7 @@
     above: 10
     below: 95
     for:
-      seconds: 20
+      seconds: 25
 #  trigger:
 #    platform: state
 #    entity_id: sensor.nexus__obecnosc
@@ -217,7 +217,7 @@
         message: "Światło włączone"
         title: "Homeassistant"
     - service: tts.google_say
-      entity_id: media_player.vlc
+      entity_id: media_player.mpd_server
       data:
         message: 'Światło włączone'
 
@@ -250,11 +250,11 @@
   action:
     - delay:
         seconds: 80
-    - service: shell_command.play_sound
+    - service: shell_command.notification
     - service: fan.turn_off
       entity_id: fan.wentylator_w_azience
     - service: tts.google_say
-      entity_id: media_player.vlc
+      entity_id: media_player.mpd_server
       data:
         message: 'Wentylator wyłączony'
 
@@ -272,7 +272,7 @@
         topic: "powiadomienie"
         payload: "Dobranoc, śpij dobrze."
     - service: tts.google_say
-      entity_id: media_player.vlc
+      entity_id: media_player.mpd_server
       data:
         message: 'Dobranoc, śpij dobrze.'
     - delay:
@@ -287,7 +287,7 @@
     platform: state
     entity_id: updater.updater
   action:
-    - service: shell_command.play_sound
+    - service: shell_command.notification
     - service: notify.html5
       data:
         message: 'Home Assistant - dostępna aktualizacja.'
@@ -373,15 +373,15 @@
   action:
     - service: persistent_notification.create
       data:
-        message: "Dostępnych jest {{ states('sensor.dostepne_aktualizacje') }} aktualizacji na serwerze."
+        message: "Dostępnych {{ states('sensor.dostepne_aktualizacje') }} aktualizacji na serwerze."
     - service: notify.html5
       data_template:
-        message: "Dostępnych jest {{ states('sensor.dostepne_aktualizacje') }} aktualizacji na serwerze."
+        message: "Dostępnych {{ states('sensor.dostepne_aktualizacje') }} aktualizacji na serwerze."
         title: "Homeassistant"
         data:
             url: "/states/group.server"
     - service: tts.google_say
-      entity_id: media_player.vlc
+      entity_id: media_player.mpd_server
       data_template:
         message: "Dostępnych jest {{ states('sensor.dostepne_aktualizacje') }} aktualizacji na serwerze."
 
@@ -400,14 +400,14 @@
         seconds: 20
     - service: notify.html5
       data_template:
-        message: "Dostępnych jest {{ states('sensor.dostepne_aktualizacje_bezpieczenstwa') }} aktualizacji bezpieczeństwa na serwerze."
+        message: "Dostępnych są {{ states('sensor.dostepne_aktualizacje_bezpieczenstwa') }} aktualizacji bezpieczeństwa na serwerze."
         title: "Homeassistant"
         data:
             url: "/states/group.server"
     - service: tts.google_say
-      entity_id: media_player.vlc
+      entity_id: media_player.mpd_server
       data_template:
-        message: "Dostępnych jest {{ states('sensor.dostepne_aktualizacje_bezpieczenstwa') }} aktualizacji bezpieczeństwa na serwerze."
+        message: "Dostępnych są {{ states('sensor.dostepne_aktualizacje_bezpieczenstwa') }} aktualizacji bezpieczeństwa na serwerze."
 
 
 - id: auto toggle back komputer sw
@@ -455,13 +455,31 @@
     entity_id: sensor.do_domu
     above: 20
   action:
-    service: notify.html5
+    service: notify.html5_device_nexus
     data_template:
-      message: "Czas dojazdu do domu wynośi {{ states.sensor.do_domu.state }}"
+      message: "Czas dojazdu do domu wynosi {{ states.sensor.do_domu.state }}"
       title: "Homeassistant"
       data:
         url: "https://goo.gl/maps/DXT7KZ8Dp6L2"
-###############################################################
+
+- id: korek do pracy
+  alias: Powiadomienie o natezeniu ruchy do pracy z domu
+  trigger:
+    platform: zone
+    entity_id: device_tracker.gohm_nexus
+    zone: zone.home
+    event: leave
+  condition:
+    condition: numeric_state
+    entity_id: sensor.do_domu
+    above: 20
+  action:
+    service: notify.html5_device_nexus
+    data_template:
+      message: "Czas dojazdu do pracy wynosi {{ states.sensor.do_pracy.state }}"
+      title: "Homeassistant"
+      data:
+        url: "https://goo.gl/maps/DXT7KZ8Dp6L2" ### uwaga link do domu ##
 
 - id: wietrzenie
   alias: wietrzenie
@@ -473,7 +491,7 @@
     entity_id: device_tracker.gohm_nexus
     state: home
   action:
-    - service: shell_command.play_sound
+    - service: shell_command.notification
     - service: notify.html5
       data_template:
         message: Czas na wietrzenie
@@ -485,8 +503,9 @@
             - action: wietrzenie_potem
               icon: "/static/icons/favicon-192x192.png"
               title: Nie wietrzymy
+          requireInteraction: 'true'
     - service: tts.google_say
-      entity_id: media_player.vlc
+      entity_id: media_player.mpd_server
       data:
         message: 'Czas na wietrzenie.'
 
@@ -508,6 +527,10 @@
         temperature: 7
     - service: timer.start
       entity_id: timer.wietrzenie_start_za
+    - service: tts.google_say
+      entity_id: media_player.mpd_server
+      data:
+        message: 'Wietrzenie rozpocznie się za 6 minut.'
 
 - id: wietrzymy_powiadomienie_otworz_okno
   alias: wietrzymy_powiadomienie_otworz_okno
@@ -517,7 +540,7 @@
     from: 'active'
     to: 'idle'
   action:
-    - service: shell_command.play_sound
+    - service: shell_command.notification
     - service: notify.html5
       data_template:
         message: "Otwórz okno"
@@ -529,8 +552,9 @@
             - action: wietrzenie_potem
               icon: "/static/icons/favicon-192x192.png"
               title: Nie wietrzymy
+          requireInteraction: 'true'
     - service: tts.google_say
-      entity_id: media_player.vlc
+      entity_id: media_player.mpd_server
       data:
         message: 'Otwórz okno.'
 
@@ -549,7 +573,7 @@
         message: "Wietrzenie rozpoczęte"
         title: "Homeassistant"
     - service: tts.google_say
-      entity_id: media_player.vlc
+      entity_id: media_player.mpd_server
       data:
         message: 'Wietrzenie rozpoczęte.'
 
@@ -569,13 +593,15 @@
           - climate.termostat_w_sypialni_heating_1
           - climate.termostat_w_lazience_heating_1
         temperature: 22
-    - service: shell_command.play_sound
+    - service: shell_command.notification
     - service: notify.html5
       data_template:
         message: "Wietrzenie zakończone, zamknij okno"
+        data:
+          requireInteraction: 'true'
         title: "Homeassistant"
     - service: tts.google_say
-      entity_id: media_player.vlc
+      entity_id: media_player.mpd_server
       data:
         message: 'Wietrzenie zakończone, zamknij okno.'
 
@@ -590,13 +616,13 @@
 #    minutes: '/1'
 #    seconds: 00
   action:
-    - service: shell_command.play_sound
+    - service: shell_command.notification
 #    - service: media_player.volume_set
 #      data_template:
-#        entity_id: media_player.vlc
+#        entity_id: media_player.mpd_server
 #        volume_level: 0.6
     - service: tts.google_say
-      entity_id: media_player.vlc
+      entity_id: media_player.mpd_server
       data_template:
         message: "{% if states('sensor.pogoda_temperature') | float < 10 %}
                     Jest zimno.
@@ -617,7 +643,7 @@
                   {%- endif -%}
 
                   Temperatura na zewnątrz wynosi {{states('sensor.pogoda_temperature') | round }} stopni celcjusza.
-                  Wilgotność {{states('sensor.pogoda_humidity') | round }} procenta. Ciśnienie {{states('sensor.pogoda_pressure') | round }} milibarów. Czas dojazdu do pracy wynosi {{ states('sensor.do_pracy') }} minuty."
+                  Wilgotność {{states('sensor.pogoda_humidity') | round }} procenta. Ciśnienie {{states('sensor.pogoda_pressure') | round }} hektopaskali. Czas dojazdu do pracy wynosi {{ states('sensor.do_pracy') }} minut."
         cache: false
 
 
@@ -633,10 +659,10 @@
 #        seconds: 30
 #    - service: media_player.volume_set
 #      data_template:
-#        entity_id: media_player.vlc
+#        entity_id: media_player.mpd_server
 #        volume_level: 0.8
 #    - service: tts.google_say
-#      entity_id: media_player.vlc
+#      entity_id: media_player.mpd_server
 #      data_template:
 #        message: "Witaj w domu.
 #                  {%- if states.sensor.aqi_w_pokoju_dziennym.state|float >= 0 and states.sensor.aqi_w_pokoju_dziennym.state|float <= 50 -%}
@@ -663,7 +689,7 @@
     above: 10
     below: 95
     for:
-      seconds: 20
+      seconds: 25
   condition:
     condition: and
     conditions:
@@ -675,15 +701,15 @@
         above: 5
 ########################### dodac last trigger - 1 godzina?
   action:
-    - service: shell_command.play_sound
+    - service: shell_command.notification
 #    - delay:
 #        seconds: 1
 #    - service: media_player.volume_set
 #      data_template:
-#        entity_id: media_player.vlc
+#        entity_id: media_player.mpd_server
 #        volume_level: 0.9
     - service: tts.google_say
-      entity_id: media_player.vlc
+      entity_id: media_player.mpd_server
       data_template:
         message: "Witaj w domu.
                   {%- if states.sensor.aqi_w_pokoju_dziennym.state|float >= 0 and states.sensor.aqi_w_pokoju_dziennym.state|float <= 50 -%}
@@ -721,9 +747,9 @@
       data:
         topic: "powiadomienie"
         payload: "Wymień baterie - tradfri."
-    - service: shell_command.play_sound
+    - service: shell_command.notification
     - service: tts.google_say
-      entity_id: media_player.vlc
+      entity_id: media_player.mpd_server
       data:
         message: 'Wymień baterie w tradfri.'
 
@@ -745,7 +771,7 @@
         before: '08:00:00'
   action:
     - service: tts.google_say
-      entity_id: media_player.vlc
+      entity_id: media_player.mpd_server
       data:
         message: 'Pobudka! Pobudka! Pobudka! Pobudka! Pobudka! Pobudka! Pobudka! Pobudka! Pobudka! Pobudka! Pobudka! Pobudka! Pobudka! Pobudka! Pobudka! Pobudka! Pobudka! Pobudka! Pobudka! '
 
@@ -766,9 +792,9 @@
 ##        state: 'on'
 ##    value_template: "{% if is_state('states.sensor.wykrywanie_twarzy_gohm.state', 'gohm') %}true{% endif %}"
 #  action:
-#    - service: shell_command.play_sound
+#    - service: shell_command.notification
 #    - service: tts.google_say
-#      entity_id: media_player.vlc
+#      entity_id: media_player.mpd_server
 #      data:
 #        message: 'Dzień dobry mam nadzieję że dobrze spałeś'
 
@@ -788,7 +814,7 @@
     before: '05:00:00'
   action:
     - service: tts.google_say
-      entity_id: media_player.vlc
+      entity_id: media_player.mpd_server
       data:
         message: 'Dobranoc'
     - delay:
@@ -817,10 +843,10 @@
       - fri
   action:
     - service: tts.google_say
-      entity_id: media_player.vlc
+      entity_id: media_player.mpd_server
       data_template:
         message: "Dowidzenia. {% if states('sensor.pogoda_temperature') | float < 10 %}
-                    Jest zimno.
+                    Ubierz się ciepło. Jest zimno.
                   {%endif %}
                   {%- if states.sensor.waqi_katowice_ul_kossutha_6_poland.state|float >= 0 and states.sensor.waqi_katowice_ul_kossutha_6_poland.state|float <= 50 -%}
                   Jakość powietrza jest dobra.
@@ -838,7 +864,7 @@
                   {%- endif -%}
 
                   Temperatura na zewnątrz wynosi {{states('sensor.pogoda_temperature') | round }} stopni celcjusza.
-                  Wilgotność {{states('sensor.pogoda_humidity') | round }} procenta. Ciśnienie {{states('sensor.pogoda_pressure') | round }} milibarów."
+                  Wilgotność {{states('sensor.pogoda_humidity') | round }} procenta. Ciśnienie {{states('sensor.pogoda_pressure') | round }} hektopaskali. Czas dojazdu do pracy wynosi {{ states('sensor.do_pracy') }} minut."
         cache: false
 
 - id: temperatura_w_mieszkaniu_all
@@ -857,10 +883,10 @@
         temperature: "{{ states.input_number.slider_temp.state }}"
 #    - service: media_player.volume_set
 #      data_template:
-#        entity_id: media_player.vlc
+#        entity_id: media_player.mpd_server
 #        volume_level: 0.6
     - service: tts.google_say
-      entity_id: media_player.vlc
+      entity_id: media_player.mpd_server
       data_template:
         message: "Ustawiono {{ states.sensor.slider_temp_comma.state }} °C w całym mieszkaniu."
 #        message: "Ustawiono {{ states.input_number.slider_temp.state_with_unit }} w całym mieszkaniu."
@@ -880,10 +906,10 @@
         temperature: "{{ states.input_number.slider_temp_bez_lazienki.state }}"
 #    - service: media_player.volume_set
 #      data_template:
-#        entity_id: media_player.vlc
+#        entity_id: media_player.mpd_server
 #        volume_level: 0.6
     - service: tts.google_say
-      entity_id: media_player.vlc
+      entity_id: media_player.mpd_server
       data_template:
         message: "Ustawiono {{ states.input_number.slider_temp_bez_lazienki.state }} °C w całym mieszkaniu poza łazienką."
 
@@ -900,10 +926,10 @@
         temperature: "{{ states.input_number.slider_temp_lazienka.state }}"
 #    - service: media_player.volume_set
 #      data_template:
-#        entity_id: media_player.vlc
+#        entity_id: media_player.mpd_server
 #        volume_level: 0.6
     - service: tts.google_say
-      entity_id: media_player.vlc
+      entity_id: media_player.mpd_server
       data_template:
         message: "Ustawiono {{ states.input_number.slider_temp_lazienka.state }} °C w łazience."
 
@@ -917,7 +943,7 @@
     entity_id: device_tracker.gohm_nexus
     state: home
   action:
-    - service: shell_command.play_sound
+    - service: shell_command.notification
 #    - delay:
 #        seconds: 2
     - service: notify.html5
@@ -931,9 +957,10 @@
             - action: tak_ale
               icon: "/static/icons/favicon-192x192.png"
               title: Tak ale nie wyłączaj głośników
+          requireInteraction: 'true'
     - service: tts.google_say
       entity_id:
-        - media_player.vlc
+        - media_player.mpd_server
         - media_player.mpd
       data:
         message: "Późno już. Idziesz spać?"
@@ -946,13 +973,13 @@
     event_data:
       action: ide_spac
   action:
-    - service: shell_command.play_sound
+    - service: shell_command.notification
 #    - service: media_player.volume_set
 #      data_template:
-#        entity_id: media_player.vlc
+#        entity_id: media_player.mpd_server
 #        volume_level: 0.6
     - service: tts.google_say
-      entity_id: media_player.vlc
+      entity_id: media_player.mpd_server
       data:
         message: 'Dobranoc.'
     - delay:
@@ -981,13 +1008,18 @@
     entity_id: sensor.battery_phone
     below: 45
   action:
-    - service: shell_command.play_sound
+    - service: shell_command.notification
     - service: tts.google_say
       entity_id:
-        - media_player.mpd
-        - media_player.vlc
+        - media_player.mpd_server
       data:
         message: "Podłącz telefon do ładowarki."
+    - service: notify.html5
+      data_template:
+        message: "Podłącz telefon do ładowarki."
+        data:
+          requireInteraction: 'true'
+        title: "Homeassistant"
 
 - id: nie_laduj_telefon
   alias: nie_laduj_telefon
@@ -996,13 +1028,18 @@
     entity_id: sensor.battery_phone
     above: 95
   action:
-    - service: shell_command.play_sound
+    - service: shell_command.notification
     - service: tts.google_say
       entity_id:
-        - media_player.mpd
-        - media_player.vlc
+        - media_player.mpd_server
       data:
         message: "Odłącz telefon od ładowarki."
+    - service: notify.html5
+      data_template:
+        message: "Odłącz telefon od ładowarki."
+        data:
+          requireInteraction: 'true'
+        title: "Homeassistant"
 
 - id: mold_indicator_above_70
   alias: mold_indicator_above_70
@@ -1017,7 +1054,7 @@
     entity_id: sensor.mold_indicator
     above: 65
   action:
-    - service: shell_command.play_sound
+    - service: shell_command.notification
     - service: notify.html5
       data_template:
         message: "Uwaga, wskaźnik pleśni powyżej 65%."
@@ -1025,7 +1062,7 @@
 #        data:
 #            url: "/states/group.server"
     - service: tts.google_say
-      entity_id: media_player.vlc
+      entity_id: media_player.mpd_server
       data_template:
         message: "Uwaga, wskaźnik pleśni powyżej 65%."
 
@@ -1065,7 +1102,7 @@
       data:
         title: "Homeassistant"
         target: "email/anna.durka91@gmail.com"
-        message: "Test - Jestem w domu ;)"
+        message: "Jestem w domu ;)"
 
 - id: czas na trening
   alias: czas na trening
@@ -1077,9 +1114,9 @@
     entity_id: device_tracker.gohm_nexus
     zone: zone.home
   action:
-    - service: shell_command.play_sound
+    - service: shell_command.notification
     - service: tts.google_say
-      entity_id: media_player.vlc
+      entity_id: media_player.mpd_server
       data_template:
         message: "Czas na trening"
 
@@ -1094,6 +1131,162 @@
       topic: "/home/multimedia/screen_mode"
       retain: true
       payload: "{{ states('input_select.screen_mode') }}"
+
+- id: alarm_zalanie
+  alias: alarm_zalanie
+  trigger:
+    platform: time
+    seconds: '/10'
+  condition:
+    condition: numeric_state
+    entity_id: sensor.mokro_w_azience
+    below: 900
+  action:
+    - service: shell_command.set_volume_100
+    - delay:
+        seconds: 1
+    - service: shell_command.alarm
+    - service: tts.google_say
+      entity_id: media_player.mpd_server
+      data_template:
+        message: "Uwaga! Zalanie"
+    - service: notify.html5
+      data_template:
+        message: "Uwaga! Zalanie"
+
+- id: set_volume_rano
+  alias: set_volume_rano
+  trigger:
+    platform: time
+    at: '06:00:00'
+  action:
+    service: shell_command.set_volume_90
+
+- id: set_volume_dzien
+  alias: set_volume_dzien
+  trigger:
+    platform: time
+    at: '08:00:00'
+  action:
+    service: shell_command.set_volume_100
+
+- id: set_volume_noc
+  alias: set_volume_noc
+  trigger:
+    platform: time
+    at: '22:01:00'
+  action:
+    service: shell_command.set_volume_80
+
+- id: informacje
+  alias: informacje
+  trigger:
+    platform: time
+    minutes: 3
+    seconds: 00
+  condition:
+    condition: state
+    entity_id: binary_sensor.komputer
+    state: "on"
+  action:
+    - service: shell_command.notification_alternative
+#    - service: media_player.volume_set
+#      data_template:
+#        entity_id: media_player.mpd
+#        volume_level: 1
+    - service: tts.google_say
+      entity_id: media_player.mpd_server
+      data_template:
+        message:
+          "
+          Temperatura w mieszkaniu wynosi {{states('sensor.temperatura_w_pokoju_dziennym') | round }} stopni celcjusza.
+          Wilgotność {{states('sensor.wilgotnosc_w_pokoju_dziennym') | round }} %.
+          {% if is_state('sensor.pogoda_condition', 'light snow') %}Może lekko padać śnieg.{% endif %}
+          {% if is_state('sensor.pogoda_condition', 'snow') %}Pada śnieg.{% endif %}
+          {% if is_state('sensor.pogoda_condition', 'clear sky') %}Bezchmurnie.{% endif %}
+          "
+
+- id: jutro_niedziela_bez_handlu
+  alias: jutro_niedziela_bez_handlu
+  trigger:
+    platform: template
+    value_template: "{{(as_timestamp(now()) - as_timestamp(states.calendar.niedziela_bez_handlu.attributes.start_time)) | float > -28800 and (as_timestamp(now()) - as_timestamp(states.calendar.niedziela_bez_handlu.attributes.start_time)) | float < 28800 }}"
+  action:
+    - service: notify.html5
+      data:
+          title: 'Home Assistant'
+          message: 'Jutro niedziela bez handlu.'
+    - service: persistent_notification.create
+      data:
+        message: "Jutro niedziela bez handlu."
+    - service: tts.google_say
+      entity_id: media_player.mpd_server
+      data_template:
+        message: "Jutro niedziela bez handlu."
+
+- id: jutro_wydarzenie_w_kalendarzu
+  alias: jutro_wydarzenie_w_kalendarzu
+  trigger:
+    platform: time
+    at: '18:00:10'
+  condition:
+    condition: state
+    entity_id: binary_sensor.jutro_wydarzenie_w_kalendarzu
+    state: 'on'
+  action:
+    - service: notify.html5
+      data:
+          title: 'Home Assistant'
+          message: 'Jutro wydarzenie w kalendarzu.'
+    - service: persistent_notification.create
+      data:
+        message: "Jutro wydarzenie w kalendarzu."
+    - service: tts.google_say
+      entity_id: media_player.mpd_server
+      data_template:
+        message:
+          "
+          Jutro w kalendarzu o godzinie {{ strptime(states.calendar.prywatny.attributes.start_time, '%Y-%m-%d %H:%M:%S').strftime('%H:%M') }}. {{ states.calendar.prywatny.attributes.message }}.
+          "
+
+- id: prysznic
+  alias: prysznic
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.wilgotnosc_w_azience
+    above: 85
+    for:
+      seconds: 2
+  condition:
+    condition: template
+    value_template: '{{as_timestamp(now()) - (as_timestamp(states.automation.prysznic.attributes.last_triggered)) | float > 120 }}'
+  action:
+    - service: scene.turn_on
+      entity_id: scene.prysznic
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.screen_mode
+        option: 'single'
+
+- id: wlaczenie_wentylatora_po_prysznicu
+  alias: wlaczenie_wentylatora_po_prysznicu
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.wilgotnosc_w_azience
+    below: 90
+#    for:
+#      seconds: 2
+  condition:
+    - condition: numeric_state
+      entity_id: sensor.time_online
+      above: 5
+#  condition:
+#    condition: template
+#    value_template: '{{as_timestamp(now()) - (as_timestamp(states.automation.prysznic.attributes.last_triggered)) | float > 120 }}'
+  action:
+    - service: fan.turn_on
+      entity_id: fan.wentylator_w_azience
+
 
 #- id: uruchomienie_komputera
 #  alias: Automatyczne uruchomienie komputera

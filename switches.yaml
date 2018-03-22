@@ -25,12 +25,8 @@
   qos: 0
   ratain: true
 
-#- platform: transmission
-#  host: 192.168.1.100
-#  name: Transmission
-#  username: gohm
-#  password: znikam
-
-#- platform: zoneminder
-#  command_on: Modect
-#  command_off: Monitor
+- platform: transmission
+  host: 192.168.1.100
+  name: Transmission
+  username: !secret transmission_username
+  password: !secret transmission_password

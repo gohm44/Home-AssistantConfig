@@ -1,2 +1,2 @@
-client_id: 112397264691-nisqttqvq77hhlldlsd1r70pn61c4mcl.apps.googleusercontent.com
-client_secret: -lipReN8QD85uD5QrLSsfvPL
+client_id: !secret google_client_id
+client_secret: !secret google_client_secret

@@ -7,7 +7,7 @@
 #      - humidity
 
 - platform: openweathermap
-  api_key: e3f1248a50a66e4b759e227932f24dc7
+  api_key: !secret openweathermap_api_key
   name: pogoda
   monitored_conditions:
     - weather
@@ -17,26 +17,8 @@
     - humidity
     - pressure
     - clouds
-    - rain
-    - snow
-
-#- platform: darksky
-#  api_key: a7350a9c8b063ec51e823d25614570b8
-#  name: pogoda
-#  forecast: 1
-#  monitored_conditions:
-#    - summary
-#    - icon
-#    - temperature
-#    - humidity
-#    - pressure
-#  units: si
-
-#- platform: command_line
-#  name: CPU Temperature
-#  command: "cat /sys/class/thermal/thermal_zone2/temp"
-#  unit_of_measurement: "°C"
-#  value_template: '{{ value | multiply(0.001) | round(1) }}'
+#    - rain
+#    - snow
 
 - platform: mqtt
   name: "Temperatura w kuchni"
@@ -226,18 +208,15 @@
 #    0:
 #      name: Jasność w Pokoju Dziennym
 
-#- platform: transmission
-#  host: 192.168.1.100
-#  name: Transmission
-#  username: gohm
-#  password: znikam
-#  monitored_variables:
-#    - 'current_status'
-#    - 'download_speed'
-#    - 'upload_speed'
-
-#- platform: zoneminder
-#  include_archived: false
+- platform: transmission
+  host: 192.168.1.100
+  name: Transmission
+  username: !secret transmission_username
+  password: !secret transmission_password
+  monitored_variables:
+    - 'current_status'
+    - 'download_speed'
+    - 'upload_speed'
 
 - platform: season
   type: astronomical
@@ -246,11 +225,13 @@
   name: Dostępne aktualizacje
   command: /usr/lib/update-notifier/apt-check --human-readable | grep "can be updated" | cut -c1,2
   value_template: '{{ value }}'
+  unit_of_measurement: 'none'
 
 - platform: command_line
   name: Dostępne aktualizacje bezpieczeństwa
   command: /usr/lib/update-notifier/apt-check --human-readable | grep "security update" | cut -c1,2
   value_template: '{{ value }}'
+  unit_of_measurement: 'none'
 
 - platform: mold_indicator
   indoor_temp_sensor: sensor.temperatura_w_pokoju_dziennym
@@ -259,7 +240,7 @@
   calibration_factor: 1.107
 
 - platform: waqi
-  token: 3769d6113134182298d5ed26e9998237a4d71f1c
+  token: !secret waqi_token
   locations:
     - katowice
 
@@ -320,20 +301,6 @@
 - platform: mqtt
   name: "Gas sensor volt"
   state_topic: "/home/gas_sensor_volt"
-  unit_of_measurement: 'none'
-  expire_after: 30
-  value_template: '{{ value | round(2) }}'
-
-- platform: mqtt
-  name: "Gas sensor RS_gas"
-  state_topic: "/home/gas_sensor_RS_gas"
-  unit_of_measurement: 'none'
-  expire_after: 30
-  value_template: '{{ value | round(2) }}'
-
-- platform: mqtt
-  name: "Gas sensor ratio"
-  state_topic: "/home/gas_sensor_ratio"
   unit_of_measurement: 'none'
   expire_after: 30
   value_template: '{{ value | round(2) }}'

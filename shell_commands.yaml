@@ -1,3 +1,12 @@
-play_sound: play --volume 0.2 /home/homeassistant/.homeassistant/sounds/to-the-point.ogg
-set_volume_95: amixer -c 1 set Master 95%
+notification: play --volume 0.2 /home/homeassistant/.homeassistant/sounds/notification.ogg
+notification_alternative: play --volume 0.2 /home/homeassistant/.homeassistant/sounds/notification_alternative.ogg
+alarm: play /home/homeassistant/.homeassistant/sounds/alarm.ogg
+set_volume_100: amixer -c 1 set Master 100%
 set_volume_90: amixer -c 1 set Master 90%
+set_volume_80: amixer -c 1 set Master 80%
+set_volume_70: amixer -c 1 set Master 70%
+set_volume_60: amixer -c 1 set Master 60%
+set_volume_50: amixer -c 1 set Master 50%
+set_volume_30: amixer -c 1 set Master 30%
+set_volume_10: amixer -c 1 set Master 10%
+set_volume_0: amixer -c 1 set Master 0%

@@ -25,11 +25,13 @@ zwave.danfoss_z_thermostat_014g0013_4:
 
 sensor.pogoda_humidity:
   friendly_name: "Wilgotność"
+  icon: mdi:water-percent
 #sensor.pogoda_humidity_1:
 #  friendly_name: "Wilgotność (jutro)"
 sensor.pogoda_pressure:
   friendly_name: "Ciśnienie atmosferyczne"
   unit_of_measurement: "hPa"
+  icon: mdi:arrow-collapse-down
 #sensor.pogoda_pressure_1:
 #  friendly_name: "Ciśnienie atmosferyczne (jutro)"
 sensor.pogoda_temperature:
@@ -38,16 +40,20 @@ sensor.pogoda_summary:
   friendly_name: Podsumowanie
 sensor.pogoda_cloud_coverage:
   friendly_name: Zachmurzenie
+  icon: mdi:weather-partlycloudy
 sensor.pogoda_condition:
   friendly_name: Warunki pogodowe
+  icon: mdi:weather-snowy-rainy
 sensor.pogoda_rain:
   friendly_name: Deszcz
 sensor.pogoda_snow:
   friendly_name: Snieg
 sensor.pogoda_wind_bearing:
   friendly_name: Kierunek wiatru
+  icon: mdi:weather-windy-variant
 sensor.pogoda_wind_speed:
   friendly_name: Prędkość wiatru
+  icon: mdi:weather-windy
 
 sensor.licznik_zuzycia_wody:
   icon: mdi:water
@@ -75,6 +81,10 @@ sensor.wilgotnosc_w_pokoju_dziennym:
   icon: mdi:water-percent
 sensor.wilgotnosc_w_sypialni:
   icon: mdi:water-percent
+sensor.wilgotnosc_w_azience:
+  icon: mdi:water-percent
+sensor.mokro_w_azience:
+  icon: mdi:water
 sensor.aqi_sredni_w_pokoju_dziennym:
   icon: mdi:periodic-table-co2
 sensor.aqi_w_pokoju_dziennym:
@@ -93,3 +103,11 @@ sensor.nexus__dystans:
   icon: mdi:transit-transfer
 sensor.nexus__obecnosc:
   icon: mdi:human-greeting
+media_player.snapcast_client_448a5bff591a:
+  friendly_name: Server
+media_player.snapcast_client_dc9c52001fc5:
+  friendly_name: PC
+media_player.snapcast_group_010be0ec892c9d9fab7965a949483afa:
+  friendly_name: Server
+media_player.snapcast_group_77cf08cae084b4e91ddf84db8711f308:
+  friendly_name: PC
